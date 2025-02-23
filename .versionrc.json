@@ -9,5 +9,7 @@
         { "type": "docs", "section": "📘 Documentação:", "hidden": false },
         { "type": "test", "section": "🧬 Testes:", "hidden": false },
         { "type": "BREAKING CHANGE", "section": "⚠️ Alterações Críticas:", "hidden": false }
-    ]
+    ],
+    "commitUrlFormat": "\n- Link Hash Commit: (https://github.com/gustaRC/SaferDevAnalytics/commit/{{hash}})",
+    "issueUrlFormat": " "
 }
