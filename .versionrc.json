@@ -1,0 +1,13 @@
+{
+    "changelogHeader": "# CHANGELOG - VERSIONAMENTO\n\nTodas as mudanças relevantes neste projeto são documentadas aqui.\n",
+    "types": [
+        { "type": "feat", "section": "➕ Funcionalidades/ Melhorias:", "hidden": false },
+        { "type": "fix", "section": "🪲 Correções:", "hidden": false },
+        { "type": "style", "section": "🎨 Estilo:", "hidden": false },
+        { "type": "refactor", "section": "🔄️ Refatoração:", "hidden": false },
+        { "type": "chore", "section": "⚙️ Atualização de Dependências:", "hidden": false },
+        { "type": "docs", "section": "📘 Documentação:", "hidden": false },
+        { "type": "test", "section": "🧬 Testes:", "hidden": false },
+        { "type": "BREAKING CHANGE", "section": "⚠️ Alterações Críticas:", "hidden": false }
+    ]
+}

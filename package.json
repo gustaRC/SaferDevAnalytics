@@ -7,7 +7,18 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:saferDevAnalytics": "node dist/safer-dev-analytics/server/server.mjs"
+
+    "serve:ssr:saferDevAnalytics": "node dist/safer-dev-analytics/server/server.mjs",
+
+    "release": "standard-version",
+    "release_patch": "standard-version --release-as patch",
+    "release_minor": "standard-version --release-as minor",
+    "release_major": "standard-version --release-as major",
+    "release_teste": "standard-version --dry-run",
+    "release_teste_patch": "standard-version --release-as patch --dry-run",
+    "release_teste_minor": "standard-version --release-as minor --dry-run",
+    "release_teste_major": "standard-version --release-as major --dry-run",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
