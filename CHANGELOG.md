@@ -2,6 +2,14 @@
 
 Todas as mudanças relevantes neste projeto são documentadas aqui.
 
+### [0.0.2](https://github.com/gustaRC/SaferDevAnalytics/compare/v0.0.1...v0.0.2) (2025-02-23)
+
+
+### 🪲 Correções:
+
+* **Configuração na estilização do CHANGELOG:** O link Hash ficava em formato de ponto, atrapalhando a visualização dos commits ([11d1b3d](
+-> Link Hash Commit: (https://github.com/gustaRC/SaferDevAnalytics/commit/11d1b3d3e3f808578299501b6458c4bae29daa82)))
+
 ### 0.0.1 (2025-02-23)
 
 
