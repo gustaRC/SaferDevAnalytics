@@ -11,4 +11,5 @@ if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "main" ]] && ! [[ "$COMMIT
   echo "."
 
   npm run release
+  git push --follow-tags origin main
 fi

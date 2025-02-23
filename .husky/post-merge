@@ -7,6 +7,7 @@ if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "main" ]]; then
   echo "--- Alterando CHANGELOG.md e Versão..."
   echo "."
   echo "."
-  
+
   npm run release
+  git push --follow-tags origin main
 fi
