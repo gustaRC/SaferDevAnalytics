@@ -1,0 +1,14 @@
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+COMMIT_MSG=$(git log -1 --pretty=%B)
+
+# Verifica se o commit é de versionamento do standard-version
+if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "main" ]] && ! [[ "$COMMIT_MSG" =~ ^chore\(release\): ]]; then
+  echo "."
+  echo "."
+  echo "--- Post-COMMIT - Husky 🐶"
+  echo "--- Alterando CHANGELOG.md e Versão..."
+  echo "."
+  echo "."
+
+  npm run release
+fi

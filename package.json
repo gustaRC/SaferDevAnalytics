@@ -7,9 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-
     "serve:ssr:saferDevAnalytics": "node dist/safer-dev-analytics/server/server.mjs",
-
     "release": "standard-version",
     "release_patch": "standard-version --release-as patch",
     "release_minor": "standard-version --release-as minor",
