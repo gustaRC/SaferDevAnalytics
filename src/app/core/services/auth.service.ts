@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class AuthService {
 
-  private apiUrl: string = "http://tarefas.safererp.com.br/redmine";
+  private apiUrlAuth: string = "redmine/users/current.json";
 
   constructor(
     private http: HttpClient,
@@ -21,7 +21,7 @@ export class AuthService {
       'Content-Type': 'application/json',
     })
 
-    return this.http.get(`${this.apiUrl}/users/current.json`, { headers, withCredentials: true },);
+    return this.http.get(`${this.apiUrlAuth}`, { headers },);
   }
 
 }
