@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,14 @@ export class AuthService {
   ) { }
 
   login(username: string, password: string): Observable<any> {
-    const authAuthorization = 'Basic ' + btoa(`${username}:${password}`)
+    const authAuthorization = 'Basic ' + btoa(`${username}:${password}`);
 
     const headers = new HttpHeaders({
       'Authorization': authAuthorization,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     })
 
-    return this.http.get(`${this.apiUrlAuth}`, { headers },);
+    return this.http.get(`${this.apiUrlAuth}`, { headers, withCredentials: true });
   }
 
 }
