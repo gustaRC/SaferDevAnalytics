@@ -10,4 +10,11 @@ export class User {
   passwd_changed_on!: string;
   twofa_scheme!: any;
   api_key!: string;
+
+  static fromJson(json: Partial<User>): User {
+    const user = new User();
+    Object.assign(user, json);
+    return user;
+  }
+
 }

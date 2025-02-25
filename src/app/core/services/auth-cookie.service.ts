@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { User } from '../../shared/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthCookieService {
-  private readonly TOKEN_KEY = 'auth_token';
+  private readonly USER_KEY = 'auth_token';
 
   constructor(
     private cookieService: CookieService
   ) { }
 
-  setToken(token: string): void {
-    this.cookieService.set(this.TOKEN_KEY, token, {
+  setUser(user: User): void {
+    this.cookieService.set(this.USER_KEY, JSON.stringify(user), {
       expires: 1,
-      secure: window.location.protocol === 'https:',
       sameSite: 'Strict',
       path: '/',
     });
   }
 
-  getToken(): string {
-    return this.cookieService.get(this.TOKEN_KEY);
+  getUser(): User | undefined {
+    const userCookie = this.cookieService.get(this.USER_KEY);
+    if(userCookie) {
+      return User.fromJson(JSON.parse(userCookie));
+    }
+    return undefined;
   }
 
-  deleteToken(): void {
-    this.cookieService.delete(this.TOKEN_KEY, '/');
+  deleteUser(): void {
+    this.cookieService.delete(this.USER_KEY, '/');
   }
 
 }
