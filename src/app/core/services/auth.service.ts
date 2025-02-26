@@ -38,4 +38,12 @@ export class AuthService {
 
   }
 
+  deslogar() {
+    if(this.authCookieService.getUser()) {
+      this.authCookieService.deleteUser();
+      //router.navigate(['/login])
+    }
+
+  }
+
 }
