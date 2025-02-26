@@ -1,15 +1,15 @@
 export class User {
-  id!: number;
-  login!: string;
-  admin!: boolean;
-  firstname!: string;
-  lastname!: string;
-  created_on!: string;
-  updated_on!: string;
-  last_login_on!: string;
-  passwd_changed_on!: string;
-  twofa_scheme!: any;
-  api_key!: string;
+  readonly id!: number;
+  readonly login!: string;
+  readonly admin!: boolean;
+  readonly firstname!: string;
+  readonly lastname!: string;
+  readonly created_on!: string;
+  readonly updated_on!: string;
+  readonly last_login_on!: string;
+  readonly passwd_changed_on!: string;
+  readonly twofa_scheme!: any;
+  readonly api_key!: string;
 
   static fromJson(json: Partial<User>): User {
     const user = new User();
