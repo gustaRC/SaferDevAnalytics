@@ -38,7 +38,7 @@ export class AuthService {
 
   }
 
-  deslogar() {
+  logout() {
     if(this.authCookieService.getUser()) {
       this.authCookieService.deleteUser();
       //router.navigate(['/login])
