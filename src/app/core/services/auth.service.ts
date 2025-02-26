@@ -24,11 +24,11 @@ export class AuthService {
       'Content-Type': 'application/json'
     })
 
-    return this.http.get<User>(
+    return this.http.get<{user: User}>(
       `${this.apiUrlAuth}`, { headers }
     )
     .pipe(
-      map((response: any) => response.user),
+      map((response: {user: User}) => response.user),
       tap(response => {
         const user = User.fromJson(response);
 
