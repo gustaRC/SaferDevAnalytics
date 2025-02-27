@@ -8,6 +8,6 @@ if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "main" ]]; then
   echo "."
   echo "."
 
-  npm run release
-  git push --follow-tags origin main
+  # npm run release
+  # git push --follow-tags origin main
 fi
