@@ -1,0 +1,8 @@
+{
+  "/redmine": {
+    "target": "http://tarefas.safererp.com.br",
+    "secure": false,
+    "changeOrigin": true,
+    "withCredentials": true
+  }
+}
