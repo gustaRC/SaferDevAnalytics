@@ -1,7 +1,7 @@
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "main" ]]; then
-    echo "======================= Commit ============================="
+    echo "======================== Merge ============================="
     echo "============ Branch 'Master/Main' identificada! ============"
     echo "============================================================"
 fi
