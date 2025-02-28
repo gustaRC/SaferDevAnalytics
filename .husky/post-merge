@@ -4,10 +4,18 @@ if [[ "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "main" ]]; then
   echo "."
   echo "."
   echo "--- Post-MERGE - Husky 🐶"
-  echo "--- Alterando CHANGELOG.md e Versão..."
+  echo "--- Processando CHANGELOG.md e Versão..."
   echo "."
   echo "."
 
-  # npm run release
-  # git push --follow-tags origin main
+  npm run release_test
+
+  read -p "Deseja confirmar o versionamento e CHANGELOG automático? (s/N): " confirm
+  if [[ "$confirm" =~ ^[Ss]$ ]]; then
+    npm run release
+    git push --follow-tags origin main
+  else
+    echo "Versionamento e CHANGELOG automático cancelado!"
+  fi
+
 fi
