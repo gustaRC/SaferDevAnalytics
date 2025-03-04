@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injector } from '@angular/core';
+import { FilterIssues } from '../models/filter-issues.model';
 
 export abstract class BaseService {
 
@@ -13,5 +14,24 @@ export abstract class BaseService {
     this.baseUrl = `redmine/${apiPath}`;
     this.http = this.injector.get(HttpClient);
   }
+
+  protected buildRedmineFilterUrl(filters: FilterIssues, jumpOffset = true): string {
+    const params = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(filters)) {
+      if(jumpOffset && key === 'offset') {
+        continue;
+      }
+
+      if (Array.isArray(value)) {
+        params.append(key, value.join('|'));
+      } else {
+        params.append(key, String(value));
+      }
+    }
+
+    return params.toString();
+  }
+
 }
 
