@@ -15,14 +15,10 @@ export abstract class BaseService {
     this.http = this.injector.get(HttpClient);
   }
 
-  protected buildRedmineFilterUrl(filters: FilterIssues, jumpOffset = true): string {
+  protected buildRedmineFilterUrl(filters: FilterIssues): string {
     const params = new URLSearchParams();
 
     for (const [key, value] of Object.entries(filters)) {
-      if(jumpOffset && key === 'offset') {
-        continue;
-      }
-
       if (Array.isArray(value)) {
         params.append(key, value.join('|'));
       } else {
