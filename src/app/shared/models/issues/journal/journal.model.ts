@@ -1,4 +1,4 @@
-import { DefaultModel } from "../default.model";
+import { DefaultModel } from "../../default.model";
 import { JournalDetail } from "./journal-detail.model";
 
 export class Journal {

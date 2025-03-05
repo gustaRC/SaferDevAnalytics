@@ -1,4 +1,4 @@
-import { Issue } from "./issue.model";
+import { Issue } from "../issue.model";
 import { Journal } from "./journal.model";
 
 export class IssueJournal extends Issue{

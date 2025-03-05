@@ -3,6 +3,7 @@ import { computed, Injectable, Injector, signal } from '@angular/core';
 import { BaseService } from '../base.service';
 import { FilterIssues } from '../../models/issues/filter-issues.model';
 import { map, Observable } from 'rxjs';
+import { IssueJournal } from '../../models/issues/journal/issue-journal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class JournalsService extends BaseService {
 
   private idsIssues: number[] = [];
 
-  private issuesWithJournals = signal<any[]>([]); //implementar tipagem antes de manipular
+  private issuesWithJournals = signal<IssueJournal[]>([]); //implementar tipagem antes de manipular
 
   processedIssues = computed(() => {
     console.log('processedIssues: ', this.issuesWithJournals());
@@ -38,9 +39,11 @@ export class JournalsService extends BaseService {
 
     if(this.idsIssues.length > 0) {
       this.idsIssues.forEach((id) => {
-        this.getIssueWithJournalsById(id).subscribe({
+        this.getIssueWithJournalsById(id)
+        .subscribe({
           next: (responseIssue) => {
-            this.issuesWithJournals.update((currentIssues) => [...currentIssues, responseIssue]);
+            console.log('responseIssue: ', responseIssue);
+            this.issuesWithJournals.update((currentIssues: any) => [...currentIssues, responseIssue]);
           }
         });
 
@@ -51,8 +54,9 @@ export class JournalsService extends BaseService {
 
   }
 
-  getIssueWithJournalsById(id: number): Observable<any> {
-    return this.http.get<any>(this.getUrlById(id));
+  getIssueWithJournalsById(id: number): Observable<{issue: IssueJournal}> {
+    return this.http.get<{issue: IssueJournal}>(this.getUrlById(id));
+    //CONVERTER PARA O MODELO DE ISSUEJOURNAL, atualmente está {issue: IssueJournal}
   }
 
 
