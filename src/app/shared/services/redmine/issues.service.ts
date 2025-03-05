@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseService } from '../base.service';
 import { expand, map, Observable, reduce } from 'rxjs';
-import { FilterIssues } from '../../models/filter-issues.model';
+import { FilterIssues } from '../../models/issues/filter-issues.model';
 
 @Injectable({
   providedIn: 'root'

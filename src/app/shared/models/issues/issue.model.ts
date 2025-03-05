@@ -1,5 +1,5 @@
 import { CustomField } from "./custom-field.model";
-import { DefaultModel } from "./default.model";
+import { DefaultModel } from "../default.model";
 
 export class Issue {
   id!: number;

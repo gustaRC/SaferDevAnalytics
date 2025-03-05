@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injector } from '@angular/core';
-import { FilterIssues } from '../models/filter-issues.model';
+import { FilterIssues } from '../models/issues/filter-issues.model';
 
 export abstract class BaseService {
 

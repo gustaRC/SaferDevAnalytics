@@ -1,7 +1,7 @@
 import { IssuesService } from './issues.service';
 import { computed, Injectable, Injector, signal } from '@angular/core';
 import { BaseService } from '../base.service';
-import { FilterIssues } from '../../models/filter-issues.model';
+import { FilterIssues } from '../../models/issues/filter-issues.model';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class JournalsService extends BaseService {
 
   private idsIssues: number[] = [];
 
-  private issuesWithJournals = signal<any[]>([]);
+  private issuesWithJournals = signal<any[]>([]); //implementar tipagem antes de manipular
 
   processedIssues = computed(() => {
     console.log('processedIssues: ', this.issuesWithJournals());
