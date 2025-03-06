@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injector } from '@angular/core';
 import { FilterIssues } from '../models/issues/filter-issues.model';
+import { BaseModel } from '../models/base.model';
 
 export abstract class BaseService {
 
   protected baseUrl: string;
   protected http: HttpClient;
+
+  protected idsResource: number[] = [];
 
   constructor(
     protected apiPath: string,
@@ -31,6 +34,15 @@ export abstract class BaseService {
     }
 
     return params.toString();
+  }
+
+  protected setIdsResources<T extends BaseModel>(resources: T[] | undefined): void {
+    if(resources === undefined) {
+      return;
+    }
+
+    this.idsResource = [];
+    this.idsResource = resources.map(resource => resource.id);
   }
 
 }

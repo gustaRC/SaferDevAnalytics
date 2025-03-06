@@ -12,8 +12,6 @@ import { SectorQuantitative } from '../../models/quantitative/sector-quantitativ
 })
 export class JournalsService extends BaseService {
 
-  private idsIssues: number[] = [];
-
   readonly issuesWithJournals = signal<IssueJournal[]>([]);
 
   readonly generalQuantitative = signal<IssuesQuantitative>(new IssuesQuantitative());
@@ -25,7 +23,7 @@ export class JournalsService extends BaseService {
     private issuesService: IssuesService
   ) {
     super(
-      'issues/',
+      'issues',
       injector
     );
   }
@@ -35,8 +33,8 @@ export class JournalsService extends BaseService {
 
     await this.getIssues(filters);
 
-    if(this.idsIssues.length > 0) {
-      this.idsIssues.forEach((id) => {
+    if(this.idsResource.length > 0) {
+      this.idsResource.forEach((id) => {
         this.getIssueWithJournalsById(id)
         .subscribe({
           next: (responseIssue: IssueJournal) => {
@@ -63,20 +61,15 @@ export class JournalsService extends BaseService {
   //PRIVATE METHODS
 
   private getUrlById(id: number): string {
-    return `${this.baseUrl}${id}.json?include=journals`;
+    return `${this.baseUrl}/${id}.json?include=journals`;
   }
 
   private async getIssues(filters: FilterIssues): Promise<void> {
     await this.issuesService.getAllIssues(filters).toPromise().then(
       (responseIssue: any) => {
-        this.setIdsIssues(responseIssue);
+        this.setIdsResources(responseIssue);
       }
     );
-  }
-
-  private setIdsIssues(issues: any[]): void {
-    this.idsIssues = [];
-    this.idsIssues = issues.map(issue => issue.id);
   }
 
   private quantifyIssues(history: IssueJournal) {
