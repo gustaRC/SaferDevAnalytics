@@ -1,7 +1,7 @@
 import { DefaultModel } from "../default.model";
-import { QuantitativeIssues } from "../issues/quantitative-issues.model";
+import { IssuesQuantitative } from "./issues-quantitative.model";
 
 export class UserQuantitativeIssues {
   user!: DefaultModel;
-  quantitatives!: QuantitativeIssues;
+  quantitatives!: IssuesQuantitative;
 }
