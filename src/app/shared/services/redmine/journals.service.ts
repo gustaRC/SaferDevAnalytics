@@ -41,9 +41,8 @@ export class JournalsService extends BaseService {
       this.idsIssues.forEach((id) => {
         this.getIssueWithJournalsById(id)
         .subscribe({
-          next: (responseIssue) => {
-            console.log('responseIssue: ', responseIssue);
-            this.issuesWithJournals.update((currentIssues: any) => [...currentIssues, responseIssue]);
+          next: (responseIssue: IssueJournal) => {
+            this.issuesWithJournals.update((currentIssues: IssueJournal[]) => [...currentIssues, responseIssue]);
           }
         });
 
@@ -54,9 +53,11 @@ export class JournalsService extends BaseService {
 
   }
 
-  getIssueWithJournalsById(id: number): Observable<{issue: IssueJournal}> {
-    return this.http.get<{issue: IssueJournal}>(this.getUrlById(id));
-    //CONVERTER PARA O MODELO DE ISSUEJOURNAL, atualmente está {issue: IssueJournal}
+  getIssueWithJournalsById(id: number): Observable<IssueJournal> {
+    return this.http.get<{issue: IssueJournal}>(this.getUrlById(id))
+    .pipe(
+      map((response: {issue: IssueJournal}) => response.issue)
+    );
   }
 
 
