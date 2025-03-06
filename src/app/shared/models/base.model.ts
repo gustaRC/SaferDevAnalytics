@@ -1,4 +1,4 @@
-export class DefaultModel {
+export class BaseModel {
   id!: number;
   name!: string;
 }

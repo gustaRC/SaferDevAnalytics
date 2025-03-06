@@ -1,5 +1,5 @@
-import { DefaultModel } from "../default.model";
+import { BaseModel } from "../base.model";
 
-export class CustomField extends DefaultModel {
+export class CustomField extends BaseModel {
   value !: string | null;
 }

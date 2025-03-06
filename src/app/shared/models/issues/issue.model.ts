@@ -1,14 +1,14 @@
 import { CustomField } from "./custom-field.model";
-import { DefaultModel } from "../default.model";
+import { BaseModel } from "../base.model";
 
 export class Issue {
   id!: number;
-  project!: DefaultModel;
-  tracker!: DefaultModel;
-  status!: DefaultModel;
-  priority!: DefaultModel;
-  author!: DefaultModel;
-  assigned_to!: DefaultModel;
+  project!: BaseModel;
+  tracker!: BaseModel;
+  status!: BaseModel;
+  priority!: BaseModel;
+  author!: BaseModel;
+  assigned_to!: BaseModel;
   subject!: string;
   description!: string;
   start_date!: string;

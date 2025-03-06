@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { User } from '../../shared/models/user/user.model';
+import { UserAuth } from '../../shared/models/group-user/user-auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthCookieService {
     private cookieService: CookieService
   ) { }
 
-  setUser(user: User): void {
+  setUser(user: UserAuth): void {
     this.cookieService.set(this.USER_KEY, JSON.stringify(user), {
       expires: 1,
       sameSite: 'Strict',
@@ -20,10 +20,10 @@ export class AuthCookieService {
     });
   }
 
-  getUser(): User | undefined {
+  getUser(): UserAuth | undefined {
     const userCookie = this.cookieService.get(this.USER_KEY);
     if(userCookie) {
-      return User.fromJson(JSON.parse(userCookie));
+      return UserAuth.fromJson(JSON.parse(userCookie));
     }
     return undefined;
   }

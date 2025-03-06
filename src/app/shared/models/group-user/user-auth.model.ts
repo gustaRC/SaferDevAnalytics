@@ -1,4 +1,4 @@
-export class User {
+export class UserAuth {
   readonly id!: number;
   readonly login!: string;
   readonly admin!: boolean;
@@ -11,8 +11,8 @@ export class User {
   readonly twofa_scheme!: any;
   readonly api_key!: string;
 
-  static fromJson(json: Partial<User>): User {
-    const user = new User();
+  static fromJson(json: Partial<UserAuth>): UserAuth {
+    const user = new UserAuth();
     Object.assign(user, json);
     return user;
   }
