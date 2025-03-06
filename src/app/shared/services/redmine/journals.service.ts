@@ -46,7 +46,7 @@ export class JournalsService extends BaseService {
 
       })
     } else {
-      console.log('this.idIssues.length === 0');
+      console.log('Requisição Issues com Journals concluída, mas não há resultados!');
     }
 
   }
