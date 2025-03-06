@@ -12,7 +12,7 @@ export class JournalsService extends BaseService {
 
   private idsIssues: number[] = [];
 
-  private issuesWithJournals = signal<IssueJournal[]>([]); //implementar tipagem antes de manipular
+  readonly issuesWithJournals = signal<IssueJournal[]>([]);
 
   processedIssues = computed(() => {
     console.log('processedIssues: ', this.issuesWithJournals());
