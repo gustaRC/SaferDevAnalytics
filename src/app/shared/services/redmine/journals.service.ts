@@ -1,9 +1,11 @@
 import { IssuesService } from './issues.service';
-import { computed, Injectable, Injector, signal } from '@angular/core';
+import { Injectable, Injector, signal } from '@angular/core';
 import { BaseService } from '../base.service';
 import { FilterIssues } from '../../models/issues/filter-issues.model';
 import { map, Observable } from 'rxjs';
 import { IssueJournal } from '../../models/issues/journal/issue-journal.model';
+import { IssuesQuantitative } from '../../models/quantitative/issues-quantitative.model';
+import { SectorQuantitative } from '../../models/quantitative/sector-quantitative.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +16,9 @@ export class JournalsService extends BaseService {
 
   readonly issuesWithJournals = signal<IssueJournal[]>([]);
 
-  processedIssues = computed(() => {
-    console.log('processedIssues: ', this.issuesWithJournals());
+  readonly generalQuantitative = signal<IssuesQuantitative>(new IssuesQuantitative());
 
-    //IMPLEMENTAR MANIPULAÇÃO
-
-    return this.issuesWithJournals();
-  });
+  readonly sectorQuantitative = signal<SectorQuantitative[]>([]);
 
   constructor(
     protected override injector: Injector,
@@ -43,6 +41,8 @@ export class JournalsService extends BaseService {
         .subscribe({
           next: (responseIssue: IssueJournal) => {
             this.issuesWithJournals.update((currentIssues: IssueJournal[]) => [...currentIssues, responseIssue]);
+
+            this.quantifyIssues(responseIssue);
           }
         });
 
@@ -59,7 +59,6 @@ export class JournalsService extends BaseService {
       map((response: {issue: IssueJournal}) => response.issue)
     );
   }
-
 
   //PRIVATE METHODS
 
@@ -78,6 +77,10 @@ export class JournalsService extends BaseService {
   private setIdsIssues(issues: any[]): void {
     this.idsIssues = [];
     this.idsIssues = issues.map(issue => issue.id);
+  }
+
+  private quantifyIssues(history: IssueJournal) {
+    console.log('issue history :', history)
   }
 
 }
