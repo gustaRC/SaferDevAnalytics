@@ -19,6 +19,10 @@ export abstract class BaseService {
     const params = new URLSearchParams();
 
     for (const [key, value] of Object.entries(filters)) {
+      if(!value || value.length === 0) {
+        continue;
+      }
+
       if (Array.isArray(value)) {
         params.append(key, value.join('|'));
       } else {
