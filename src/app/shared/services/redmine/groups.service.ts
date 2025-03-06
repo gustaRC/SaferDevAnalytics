@@ -31,11 +31,12 @@ export class GroupsService extends BaseService {
         .subscribe({
           next: (responseGroup: GroupUsers) => {
             this.groupsWithUsers.update((currentGroups: GroupUsers[]) => [...currentGroups, responseGroup]);
-            console.log('groupwithusers', this.groupsWithUsers());
           }
         });
 
       })
+
+      //adicionar retorno
     } else {
       console.log('Requisição Grupos concluída, mas não há grupos!');
     }

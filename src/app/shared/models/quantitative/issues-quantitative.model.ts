@@ -1,16 +1,16 @@
 export class IssuesQuantitative {
-  qty_open_issues!: number;     //abertas|novas
-  qty_send_test!: number;       //enviadas para teste
-  qty_test_error!: number;      //erro no teste
-  percentage_errors!: string;   //porcentagem de erros
-  qty_closed_issues!: number;   //desenvolvidas
-  time_spent!: string;          //tempo gasto
-  average_time!: string;        //tempo médio
-  qty_issues_moved!: number;    //movidas
-  qty_issues_level!: {          //nível
-    low: number;
-    medium: number;
-    high: number;
-    project: number;
+  qty_open_issues: number = 0;       //abertas|novas
+  qty_send_test: number = 0;         //enviadas para teste
+  qty_test_error: number = 0;        //erro no teste
+  percentage_errors: string = '0%';  //porcentagem de erros
+  qty_closed_issues: number = 0;     //desenvolvidas
+  time_spent: string = '0';          //tempo gasto
+  average_time: string = '0';        //tempo médio
+  qty_issues_moved: number = 0;      //movidas
+  qty_issues_level = {               //nível
+    low: 0,
+    medium: 0,
+    high: 0,
+    project: 0,
   }
 }
