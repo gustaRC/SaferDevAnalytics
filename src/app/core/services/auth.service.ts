@@ -2,7 +2,7 @@ import { AuthCookieService } from './auth-cookie.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { User } from '../../shared/models/user.model';
+import { User } from '../../shared/models/user/user.model';
 
 @Injectable({
   providedIn: 'root'
