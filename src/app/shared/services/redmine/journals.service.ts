@@ -5,8 +5,8 @@ import { BaseService } from '../base.service';
 import { FilterIssues } from '../../models/issues/filter-issues.model';
 import { map, Observable } from 'rxjs';
 import { IssueJournal } from '../../models/issues/journal/issue-journal.model';
-import { IssuesQuantitative } from '../../models/quantitative/issues-quantitative.model';
-import { GroupsQuantitative } from '../../models/quantitative/groups-quantitative.model';
+import { IssuesQuantitative } from '../../models/issues/quantitative/issues-quantitative.model';
+import { GroupsQuantitative } from '../../models/issues/quantitative/groups-quantitative.model';
 import { QuantifyIssuesMethods } from '../../util/quantify-issues.methods';
 import { GroupUsers } from '../../models/group-user/group-users.model';
 
@@ -52,7 +52,6 @@ export class JournalsService extends BaseService {
       }
 
     });
-
   }
 
   getIssueWithJournalsById(id: number): Observable<IssueJournal> {
@@ -76,6 +75,7 @@ export class JournalsService extends BaseService {
       groupQty.users = group.users.map((user) => {
         return {
           user: user,
+          issues: [],
           quantitatives: new IssuesQuantitative()
         }
       })

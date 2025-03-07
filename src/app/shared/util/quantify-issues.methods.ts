@@ -1,6 +1,6 @@
 import { IssueStatusEnum } from "../enums/issue-status.enum";
 import { JournalDetail } from "../models/issues/journal/journal-detail.model";
-import { IssuesQuantitative } from "../models/quantitative/issues-quantitative.model";
+import { IssuesQuantitative } from "../models/issues/quantitative/issues-quantitative.model";
 
 export class QuantifyIssuesMethods {
 
