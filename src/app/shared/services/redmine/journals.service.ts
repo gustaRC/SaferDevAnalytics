@@ -43,7 +43,6 @@ export class JournalsService extends BaseService {
           if (responseIssue) {
             this.issuesWithJournals.update((currentIssues: IssueJournal[]) => [...currentIssues, responseIssue]);
             this.storeGroupUserIssues(responseIssue);
-            this.quantifyIssues(responseIssue);
           }
         }
         //implementar lógica de alimentar o loading de acordo com as requisições
@@ -112,10 +111,24 @@ export class JournalsService extends BaseService {
 
       })
     })
+
+    this.quantifyIssuesFromGroups();
   }
 
-  private quantifyIssues(issue: IssueJournal) {
-    // console.log('issue issue :', issue)
+  private quantifyIssuesFromGroups() {
+    this.groupsQuantitative().forEach(group => {
+      group.users.forEach(user => {
+        user.issues.forEach(issueUser => {
+          issueUser.journals.forEach(journal => {
+            journal.details.forEach(journalDetail => {
+              //MANIPULAÇÃO CONDICIONAL
+            })
+
+          })
+        })
+      })
+
+    })
   }
 
 }
