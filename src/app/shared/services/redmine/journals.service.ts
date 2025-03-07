@@ -45,6 +45,8 @@ export class JournalsService extends BaseService {
             this.storeGroupUserIssues(responseIssue);
           }
         }
+
+        this.quantifyIssuesFromGroups();
         //implementar lógica de alimentar o loading de acordo com as requisições
         this.setRequestStatus(true);
       } else {
@@ -111,8 +113,6 @@ export class JournalsService extends BaseService {
 
       })
     })
-
-    this.quantifyIssuesFromGroups();
   }
 
   private quantifyIssuesFromGroups() {
@@ -123,12 +123,12 @@ export class JournalsService extends BaseService {
             journal.details.forEach(journalDetail => {
               //MANIPULAÇÃO CONDICIONAL
             })
-
           })
+
         })
       })
-
     })
+
   }
 
 }
