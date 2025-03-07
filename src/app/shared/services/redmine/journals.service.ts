@@ -16,9 +16,7 @@ import { GroupUsers } from '../../models/group-user/group-users.model';
 export class JournalsService extends BaseService {
 
   readonly issuesWithJournals = signal<IssueJournal[]>([]);
-
   readonly generalQuantitative = signal<IssuesQuantitative>(new IssuesQuantitative());
-
   readonly groupsQuantitative = signal<GroupsQuantitative[]>([]);
 
   private quantifyMethods = new QuantifyIssuesMethods();
@@ -34,32 +32,31 @@ export class JournalsService extends BaseService {
     );
   }
 
-  async getIssueWithJournals(filters: FilterIssues) {
+  async searchIssueWithJournals(filters: FilterIssues) {
     this.issuesWithJournals.set([]);
 
-    await this.getIssues(filters);
+    this.getIssues(filters).then(async () => {
+      if(this.idsResource.length > 0) {
+        for (const id of this.idsResource) {
+          const responseIssue = await this.getIssueWithJournalsById(id).toPromise();
 
-    if(this.idsResource.length > 0) {
-      this.idsResource.forEach((id) => {
-        this.getIssueWithJournalsById(id)
-        .subscribe({
-          next: (responseIssue: IssueJournal) => {
+          if (responseIssue) {
             this.issuesWithJournals.update((currentIssues: IssueJournal[]) => [...currentIssues, responseIssue]);
-
             this.quantifyIssues(responseIssue);
           }
-        });
-      })
+        }
+        //implementar lógica de alimentar o loading de acordo com as requisições
+        this.setRequestStatus(true);
+      } else {
+        this.setRequestStatus(false);
+      }
 
-      //adicionar retorno
-    } else {
-      console.log('Requisição Issues com Journals concluída, mas não há resultados!');
-    }
+    });
 
   }
 
   getIssueWithJournalsById(id: number): Observable<IssueJournal> {
-    return this.http.get<{issue: IssueJournal}>(this.getUrlById(id))
+    return this.http.get<{issue: IssueJournal}>(this.getJournalsUrlById(id))
     .pipe(
       map((response: {issue: IssueJournal}) => response.issue)
     );
@@ -87,9 +84,10 @@ export class JournalsService extends BaseService {
     })
   }
 
+
   //PRIVATE METHODS
 
-  private getUrlById(id: number): string {
+  private getJournalsUrlById(id: number): string {
     return `${this.baseUrl}/${id}.json?include=journals`;
   }
 

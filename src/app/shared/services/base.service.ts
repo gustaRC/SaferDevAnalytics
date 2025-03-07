@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injector } from '@angular/core';
-import { FilterIssues } from '../models/issues/filter-issues.model';
 import { BaseModel } from '../models/base.model';
+import { Subject } from 'rxjs';
 
 export abstract class BaseService {
 
   protected baseUrl: string;
   protected http: HttpClient;
+
+  private requestStatusSubject = new Subject<boolean>();
+  requestStatus$ = this.requestStatusSubject.asObservable();
 
   protected idsResource: number[] = [];
 
@@ -18,22 +21,8 @@ export abstract class BaseService {
     this.http = this.injector.get(HttpClient);
   }
 
-  protected buildRedmineFilterUrl(filters: FilterIssues): string {
-    const params = new URLSearchParams();
-
-    for (const [key, value] of Object.entries(filters)) {
-      if(!value || value.length === 0) {
-        continue;
-      }
-
-      if (Array.isArray(value)) {
-        params.append(key, value.join('|'));
-      } else {
-        params.append(key, String(value));
-      }
-    }
-
-    return params.toString();
+  protected setRequestStatus(status: boolean): void {
+    this.requestStatusSubject.next(status);
   }
 
   protected setIdsResources<T extends BaseModel>(resources: T[] | undefined): void {

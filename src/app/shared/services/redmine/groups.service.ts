@@ -20,27 +20,26 @@ export class GroupsService extends BaseService {
     )
   }
 
-  async getGroupsWithUsers() {
+  getGroupsWithUsers() {
     this.groupsWithUsers.set([]);
 
-    await this.getGroups();
+    this.getGroups().then(() => {
+      if (this.idsResource.length > 0) {
 
-    if(this.idsResource.length > 0) {
-      this.idsResource.forEach((id) => {
-        this.getGroupWithUsersById(id)
-        .subscribe({
-          next: (responseGroup: GroupUsers) => {
-            this.groupsWithUsers.update((currentGroups: GroupUsers[]) => [...currentGroups, responseGroup]);
-          }
-        });
+        this.idsResource.forEach((id) => {
+          this.getGroupWithUsersById(id)
+          .subscribe({
+            next: (responseGroup: GroupUsers) => {
+              this.groupsWithUsers.update((currentGroups: GroupUsers[]) => [...currentGroups, responseGroup]);
+            }
+          });
+        })
 
-      })
-
-      //adicionar retorno
-    } else {
-      console.log('Requisição Grupos concluída, mas não há grupos!');
-    }
-
+        this.setRequestStatus(true);
+      } else {
+        this.setRequestStatus(false);
+      }
+    });
   }
 
   searchGroups(): Observable<BaseModel[]> {
@@ -57,6 +56,7 @@ export class GroupsService extends BaseService {
     );
   }
 
+
   //PRIVATE METHODS
 
   private async getGroups(): Promise<void> {
@@ -67,6 +67,5 @@ export class GroupsService extends BaseService {
       }
     );
   }
-
 
 }
