@@ -42,6 +42,7 @@ export class JournalsService extends BaseService {
 
           if (responseIssue) {
             this.issuesWithJournals.update((currentIssues: IssueJournal[]) => [...currentIssues, responseIssue]);
+            this.storeGroupUserIssues(responseIssue);
             this.quantifyIssues(responseIssue);
           }
         }
@@ -84,7 +85,6 @@ export class JournalsService extends BaseService {
     })
   }
 
-
   //PRIVATE METHODS
 
   private getJournalsUrlById(id: number): string {
@@ -99,8 +99,23 @@ export class JournalsService extends BaseService {
     );
   }
 
-  private quantifyIssues(history: IssueJournal) {
-    console.log('issue history :', history)
+  private storeGroupUserIssues(issue: IssueJournal) {
+    if (this.groupsQuantitative().length === 0) {
+      this.bootGroupsQuantitative();
+    }
+
+    this.groupsQuantitative().forEach(group => {
+      group.users.forEach(user => {
+        if(user.user.id === issue.assigned_to.id) {
+          user.issues.push(issue);
+        }
+
+      })
+    })
+  }
+
+  private quantifyIssues(issue: IssueJournal) {
+    // console.log('issue issue :', issue)
   }
 
 }
