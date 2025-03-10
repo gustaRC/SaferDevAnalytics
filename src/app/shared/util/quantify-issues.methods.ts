@@ -1,10 +1,14 @@
 import { IssueStatusEnum } from "../enums/issue-status.enum";
 import { JournalDetail } from "../models/issues/journal/journal-detail.model";
 import { IssuesQuantitative } from "../models/issues/quantitative/issues-quantitative.model";
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class QuantifyIssuesMethods {
 
-  updateFromChanges(journalsDetails: JournalDetail[]) {
+  updateFromChanges(journalsDetails: JournalDetail) {
     //loop e direcionamento
   }
 

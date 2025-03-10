@@ -20,18 +20,16 @@ export class GroupsService extends BaseService {
     )
   }
 
-  getGroupsWithUsers() {
+  async searchGroupsWithUsers() {
     this.groupsWithUsers.set([]);
 
-    this.getGroups().then(() => {
+    await this.setGroupsId().then(() => {
       if (this.idsResource.length > 0) {
 
-        this.idsResource.forEach((id) => {
-          this.getGroupWithUsersById(id)
-          .subscribe({
-            next: (responseGroup: GroupUsers) => {
+        this.idsResource.forEach(async (id) => {
+          await this.getGroupWithUsersById(id)
+          .toPromise().then((responseGroup: any) => {
               this.groupsWithUsers.update((currentGroups: GroupUsers[]) => [...currentGroups, responseGroup]);
-            }
           });
         })
 
@@ -56,10 +54,24 @@ export class GroupsService extends BaseService {
     );
   }
 
+  async getGroupsWithUsers(): Promise<GroupUsers[]> {
+    if(this.groupsWithUsers().length == 0) {
+      await this.searchGroupsWithUsers();
+
+      this.requestStatus$.subscribe({
+        next: () => {
+          return this.groupsWithUsers();
+        },
+      })
+    }
+
+    return this.groupsWithUsers();
+  }
+
 
   //PRIVATE METHODS
 
-  private async getGroups(): Promise<void> {
+  private async setGroupsId(): Promise<void> {
     await this.searchGroups()
     .toPromise().then(
       (responseGroups: any) => {
