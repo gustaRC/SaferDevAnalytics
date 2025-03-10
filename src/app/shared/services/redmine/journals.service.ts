@@ -134,9 +134,7 @@ export class JournalsService extends BaseService {
           issueUser.journals.forEach(journal => {
             journal.details.forEach(journalDetail => {
               //MANIPULAÇÃO CONDICIONAL
-              user.quantitatives.qty_send_test = 1
               this.quantifyUtilMethods.updateUserFromChanges(journalDetail, user.quantitatives);
-              console.log(`user quantitative: ${user.user.name}`, user.quantitatives)
             })
           })
 
