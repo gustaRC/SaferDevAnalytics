@@ -20,10 +20,10 @@ export class GroupsService extends BaseService {
     )
   }
 
-  getGroupsWithUsers() {
+  searchGroupsWithUsers() {
     this.groupsWithUsers.set([]);
 
-    this.getGroups().then(() => {
+    this.getGroupsIds().then(() => {
       if (this.idsResource.length > 0) {
 
         this.idsResource.forEach((id) => {
@@ -59,7 +59,7 @@ export class GroupsService extends BaseService {
 
   //PRIVATE METHODS
 
-  private async getGroups(): Promise<void> {
+  private async getGroupsIds(): Promise<void> {
     await this.searchGroups()
     .toPromise().then(
       (responseGroups: any) => {

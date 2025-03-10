@@ -19,12 +19,11 @@ export class JournalsService extends BaseService {
   readonly generalQuantitative = signal<IssuesQuantitative>(new IssuesQuantitative());
   readonly groupsQuantitative = signal<GroupsQuantitative[]>([]);
 
-  private quantifyMethods = new QuantifyIssuesMethods();
-
   constructor(
     protected override injector: Injector,
     private issuesService: IssuesService,
-    private groupsService: GroupsService
+    private groupsService: GroupsService,
+    private quantifyMethods: QuantifyIssuesMethods
   ) {
     super(
       'issues',
@@ -33,10 +32,11 @@ export class JournalsService extends BaseService {
   }
 
   async searchIssueWithJournals(filters: FilterIssues) {
-    this.issuesWithJournals.set([]);
-
     this.getIssues(filters).then(async () => {
       if(this.idsResource.length > 0) {
+        this.issuesWithJournals.set([]);
+        this.rebootGroupsIssuesQuantitative();
+
         for (const id of this.idsResource) {
           const responseIssue = await this.getIssueWithJournalsById(id).toPromise();
 
@@ -83,6 +83,16 @@ export class JournalsService extends BaseService {
       })
 
       this.groupsQuantitative.update((currentGroups: GroupsQuantitative[]) => [...currentGroups, groupQty]);
+    })
+  }
+
+  rebootGroupsIssuesQuantitative() {
+    this.groupsQuantitative().forEach(group => {
+      group.total_qty_sector_issues = new IssuesQuantitative();
+      group.users.forEach(user => {
+        user.quantitatives = new IssuesQuantitative();
+        user.issues = [];
+      })
     })
   }
 
