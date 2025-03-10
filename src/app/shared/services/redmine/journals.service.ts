@@ -7,7 +7,7 @@ import { map, Observable } from 'rxjs';
 import { IssueJournal } from '../../models/issues/journal/issue-journal.model';
 import { IssuesQuantitative } from '../../models/issues/quantitative/issues-quantitative.model';
 import { GroupsQuantitative } from '../../models/issues/quantitative/groups-quantitative.model';
-import { QuantifyIssuesMethods } from '../../util/quantify-issues.methods';
+import { QuantifyIssuesUtilMethods } from '../../util/quantify-issues.methods';
 import { GroupUsers } from '../../models/group-user/group-users.model';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class JournalsService extends BaseService {
     protected override injector: Injector,
     private issuesService: IssuesService,
     private groupsService: GroupsService,
-    private quantifyMethods: QuantifyIssuesMethods
+    private quantifyUtilMethods: QuantifyIssuesUtilMethods
   ) {
     super(
       'issues',
@@ -126,16 +126,22 @@ export class JournalsService extends BaseService {
   }
 
   private quantifyIssuesFromGroups() {
+    console.log('Grupos', this.groupsQuantitative())
+
     this.groupsQuantitative().forEach(group => {
       group.users.forEach(user => {
         user.issues.forEach(issueUser => {
           issueUser.journals.forEach(journal => {
             journal.details.forEach(journalDetail => {
               //MANIPULAÇÃO CONDICIONAL
+              user.quantitatives.qty_send_test = 1
+              this.quantifyUtilMethods.updateUserFromChanges(journalDetail, user.quantitatives);
+              console.log(`user quantitative: ${user.user.name}`, user.quantitatives)
             })
           })
 
         })
+        //quantificar grupo
       })
     })
 

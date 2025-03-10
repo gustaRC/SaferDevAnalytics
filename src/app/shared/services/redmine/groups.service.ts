@@ -21,10 +21,9 @@ export class GroupsService extends BaseService {
   }
 
   searchGroupsWithUsers() {
-    this.groupsWithUsers.set([]);
-
     this.getGroupsIds().then(() => {
       if (this.idsResource.length > 0) {
+        this.groupsWithUsers.set([]);
 
         this.idsResource.forEach((id) => {
           this.getGroupWithUsersById(id)
