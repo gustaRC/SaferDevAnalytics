@@ -12,64 +12,46 @@ export class QuantifyIssuesUtilMethods {
     [IssueStatusEnum.NOVA, 'qty_open_issues'],
     [IssueStatusEnum.EM_TESTES, 'qty_send_test'],
     [IssueStatusEnum.ERRO_NO_TESTE, 'qty_test_error'],
-]);
+    [IssueStatusEnum.FECHADA, 'qty_closed_issues'],
+  ]);
 
   //direcionamento
-  updateUserFromChanges(journalsDetails: JournalDetail, userQuantify: IssuesQuantitative) {
+  updateUserFromChanges(journalDetail: JournalDetail, userQuantify: IssuesQuantitative) {
     //if (journalsDetails.property === 'attr') {}
-    switch (journalsDetails.name) {
+    switch (journalDetail.name) {
       case 'status_id':
-        this.updateStatus(journalsDetails, userQuantify);
+        this.updateStatus(journalDetail, userQuantify);
         break;
+      case 'assigned_to_id':
+        //moved issues
     }
 
   }
 
   //loop e reduce
   updateGroupFromChanges(): IssuesQuantitative {
-
     return new IssuesQuantitative;
   }
 
   //verificar e direicionar para o método correto
-  private updateStatus(journalsDetails: JournalDetail, userQuantify: IssuesQuantitative) {
-    const { new_value, old_value } = journalsDetails;
+  private updateStatus(journalDetail: JournalDetail, userQuantify: IssuesQuantitative) {
+    const { new_value, old_value } = journalDetail;
+    const statusFieldNewValue = this.statusFieldMap.get(new_value as IssueStatusEnum);
+    const statusFieldOldValue = this.statusFieldMap.get(old_value as IssueStatusEnum);
 
-    const incrementStatuses = new Set([
-      IssueStatusEnum.NOVA,
-      IssueStatusEnum.EM_TESTES,
-      IssueStatusEnum.ERRO_NO_TESTE
-    ]);
-    const decrementStatuses = new Set([
-      IssueStatusEnum.NOVA,
-      IssueStatusEnum.EM_TESTES,
-      IssueStatusEnum.ERRO_NO_TESTE
-    ]);
+    if(new_value && statusFieldNewValue) {
+      console.log('increment')
+      userQuantify[statusFieldNewValue]++;
+    }
 
-    // const updateCount = (status: IssueStatusEnum | null | undefined, increment: number) => {
-    //   const field = this.statusFieldMap.get(status as IssueStatusEnum);
-    //   if (field) {
-    //       userQuantify[field] += increment;
-    //   }
-    // };
-
-    // const increment = new_value != null && incrementStatuses.has(new_value as IssueStatusEnum) ? 1 : 0;
-    // const decrement = old_value != null && decrementStatuses.has(old_value as IssueStatusEnum) ? -1 : 0;
-
-    // updateCount(new_value, 1);   // Incrementa o novo status, se for relevante
-    // updateCount(old_value, -1);  // Decrementa o status antigo, se for relevante
+    if(old_value && statusFieldOldValue) {
+      console.log('decrement')
+      userQuantify[statusFieldOldValue]--;
+    }
   }
 
   //verificar e direicionar para o método correto
   private updateLevel(newValue: string, oldValue: string | null) {
-  }
-
-  //incrementar status
-  private incrementStatus(userQuantify: IssuesQuantitative){
-  }
-
-  //decrementar status
-  private decrementStatus(userQuantify: IssuesQuantitative) {
   }
 
   //incrementar qtde issues movidas

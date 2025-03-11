@@ -126,18 +126,19 @@ export class JournalsService extends BaseService {
   }
 
   private quantifyIssuesFromGroups() {
-    console.log('Grupos', this.groupsQuantitative())
-
     this.groupsQuantitative().forEach(group => {
+      console.log('Grupo: ', group.group.name)
       group.users.forEach(user => {
         user.issues.forEach(issueUser => {
           issueUser.journals.forEach(journal => {
             journal.details.forEach(journalDetail => {
-              //MANIPULAÇÃO CONDICIONAL
+
               this.quantifyUtilMethods.updateUserFromChanges(journalDetail, user.quantitatives);
+
             })
           })
 
+          console.log('User Quantitatives pos manipulação: ', user.user.name, user.quantitatives)
         })
         //quantificar grupo
       })
