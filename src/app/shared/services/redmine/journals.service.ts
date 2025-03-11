@@ -111,10 +111,13 @@ export class JournalsService extends BaseService {
   }
 
   private storeGroupUserIssues(issue: IssueJournal) {
+    if(!issue.assigned_to) {
+      return;
+    }
     if (this.groupsQuantitative().length === 0) {
       this.bootGroupsQuantitative();
     }
-
+    //add issue.author_id para os users
     this.groupsQuantitative().forEach(group => {
       group.users.forEach(user => {
         if(user.user.id === issue.assigned_to.id) {
