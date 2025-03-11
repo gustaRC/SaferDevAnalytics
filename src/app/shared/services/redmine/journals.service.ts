@@ -7,7 +7,7 @@ import { map, Observable } from 'rxjs';
 import { IssueJournal } from '../../models/issues/journal/issue-journal.model';
 import { IssuesQuantitative } from '../../models/issues/quantitative/issues-quantitative.model';
 import { GroupsQuantitative } from '../../models/issues/quantitative/groups-quantitative.model';
-import { QuantifyIssuesUtilMethods } from '../../util/quantify-issues.methods';
+import { QuantifyIssuesUtilMethods } from '../../util/functions/quantify-issues.methods';
 import { GroupUsers } from '../../models/group-user/group-users.model';
 
 @Injectable({

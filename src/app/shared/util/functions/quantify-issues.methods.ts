@@ -1,7 +1,7 @@
-import { IssuesQuantitative } from './../models/issues/quantitative/issues-quantitative.model';
+import { IssuesQuantitative } from '../../models/issues/quantitative/issues-quantitative.model';
 import { Injectable } from '@angular/core';
-import { IssueStatusEnum } from "../enums/issue-status.enum";
-import { JournalDetail } from "../models/issues/journal/journal-detail.model";
+import { IssueStatusEnum } from "../../enums/issue-status.enum";
+import { JournalDetail } from "../../models/issues/journal/journal-detail.model";
 
 @Injectable({
   providedIn: 'root'
